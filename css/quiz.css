@@ -2,7 +2,9 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  background: #f2f3f4;
+  background-color: #f2f2f2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg transform='translate(10,5) scale(0.75)' fill='black' fill-opacity='0.05'%3E%3Cpath d='M9,4 C7,1 2,0 0,4 C-2,8 0,12 4,15 C6,17 8,17 9,18 L7,13 L12,8 Z'/%3E%3Cpath d='M11,4 L14,8 L9,13 L11,18 C12,17 14,17 16,15 C20,12 22,8 20,4 C18,0 13,1 11,4 Z'/%3E%3C/g%3E%3Cg transform='translate(100,22)' fill='black' fill-opacity='0.05'%3E%3Cpath d='M0,20 L0,0 L3,0 L3,10 L9,10 L9,0 L12,0 L12,20 Z'/%3E%3C/g%3E%3Cg transform='translate(28,75)' fill='black' fill-opacity='0.05'%3E%3Crect x='7' y='3' width='10.5' height='2.5'/%3E%3Crect x='7' y='3' width='1.5' height='17'/%3E%3Crect x='16' y='3' width='1.5' height='15'/%3E%3Cellipse cx='5' cy='20' rx='4' ry='3' transform='rotate(-20 5 20)'/%3E%3Cellipse cx='14' cy='18' rx='4' ry='3' transform='rotate(-20 14 18)'/%3E%3C/g%3E%3Cg transform='translate(110,100) scale(0.75)' fill='black' fill-opacity='0.05'%3E%3Cpath d='M9,4 C7,1 2,0 0,4 C-2,8 0,12 4,15 C6,17 8,17 9,18 L7,13 L12,8 Z'/%3E%3Cpath d='M11,4 L14,8 L9,13 L11,18 C12,17 14,17 16,15 C20,12 22,8 20,4 C18,0 13,1 11,4 Z'/%3E%3C/g%3E%3Cg transform='translate(55,112)' fill='black' fill-opacity='0.05'%3E%3Cpath d='M0,20 L0,0 L3,0 L3,10 L9,10 L9,0 L12,0 L12,20 Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 160px 160px;
   color: #000;
   min-height: 100vh;
   display: flex;
@@ -13,12 +15,13 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Header ── */
 header {
-  background: #f2f3f4;
-  height: 106px;
+  background: #000;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 nav {
@@ -30,14 +33,14 @@ nav {
 nav a {
   font-size: 17px;
   font-weight: 700;
-  color: #411bab;
-  border-bottom: 2px solid transparent;
+  color: #fff;
+  border-bottom: 1px solid transparent;
   padding-bottom: 2px;
   transition: border-color 0.2s;
 }
 
-nav a:hover { border-bottom-color: #411bab; }
-nav a.active { border-bottom-color: #411bab; }
+nav a:hover { border-bottom-color: #fff; }
+nav a.active { border-bottom-color: #fff; }
 
 /* ── Main ── */
 main {
@@ -45,7 +48,7 @@ main {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 24px 24px 60px;
+  padding: 56px 24px 60px;
 }
 
 /* ── Quiz card ── */
@@ -91,7 +94,7 @@ main {
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .field-label {
@@ -131,7 +134,7 @@ main {
 .field-select.error { border-color: #cf150a; }
 
 .field-error {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 400;
   color: #cf150a;
   line-height: 1.5;
