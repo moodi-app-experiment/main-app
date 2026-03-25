@@ -100,6 +100,15 @@ const LYRIC_ARTISTS = {
   ],
 };
 
+// ── Shuffle ─────────────────────────────────────────────────────────
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 // ── iTunes fetch ────────────────────────────────────────────────────
 async function fetchArtistSongs(artist) {
   try {
@@ -153,11 +162,11 @@ async function pickSongs(feeling, vibe, lyrics, preferredGenre) {
   // Sort: preferred-genre artists first, then lyric-matched, then shuffle within each tier
   const preferredGenreArtists = new Set(genrePref ? (ARTISTS[genrePref] || []) : []);
   const lyricMatch = new Set(LYRIC_ARTISTS[lyrics] || []);
-  artistPool.sort((a, b) => {
-    const tierA = preferredGenreArtists.has(a) ? 0 : lyricMatch.has(a) ? 1 : 2;
-    const tierB = preferredGenreArtists.has(b) ? 0 : lyricMatch.has(b) ? 1 : 2;
-    return tierA !== tierB ? tierA - tierB : Math.random() - 0.5;
-  });
+  const tier0 = shuffle(artistPool.filter(a => preferredGenreArtists.has(a)));
+  const tier1 = shuffle(artistPool.filter(a => !preferredGenreArtists.has(a) && lyricMatch.has(a)));
+  const tier2 = shuffle(artistPool.filter(a => !preferredGenreArtists.has(a) && !lyricMatch.has(a)));
+  artistPool.length = 0;
+  artistPool.push(...tier0, ...tier1, ...tier2);
 
   const fetched = new Set();
   let allSongs = [];
@@ -184,7 +193,7 @@ async function pickSongs(feeling, vibe, lyrics, preferredGenre) {
   }
 
   // Pick 12 songs ensuring at least 6 different artists
-  const pool = dedup(allSongs).sort(() => Math.random() - 0.5);
+  const pool = shuffle(dedup(allSongs));
   const final = [];
   const usedArtists = new Set();
 
@@ -269,6 +278,8 @@ const lyricsEl  = document.getElementById('lyrics');
 const genreEl   = document.getElementById('genre');
 const btnCreate = document.getElementById('btn-create');
 
+let lastParams = null;
+
 function setError(selectEl, errorEl, hasError) {
   selectEl.classList.toggle('error', hasError);
   errorEl.classList.toggle('visible', hasError);
@@ -298,6 +309,8 @@ btnCreate.addEventListener('click', async () => {
   btnCreate.disabled = true;
   btnCreate.classList.add('loading');
 
+  lastParams = { feeling, vibe, lyrics, genre };
+
   const [songs] = await Promise.all([
     pickSongs(feeling, vibe, lyrics, genre),
     new Promise(resolve => setTimeout(resolve, 1000)),
@@ -308,6 +321,25 @@ btnCreate.addEventListener('click', async () => {
   btnCreate.classList.remove('loading');
   document.getElementById('quiz-card').style.display = 'none';
   document.getElementById('results-card').classList.add('visible');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+const btnRefresh = document.getElementById('btn-refresh');
+btnRefresh.addEventListener('click', async () => {
+  if (!lastParams) return;
+  const { feeling, vibe, lyrics, genre } = lastParams;
+
+  btnRefresh.disabled = true;
+  btnRefresh.classList.add('loading');
+
+  const [songs] = await Promise.all([
+    pickSongs(feeling, vibe, lyrics, genre),
+    new Promise(resolve => setTimeout(resolve, 1000)),
+  ]);
+  renderResults(songs, feeling, vibe, lyrics);
+
+  btnRefresh.disabled = false;
+  btnRefresh.classList.remove('loading');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 

@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎧</text></svg>" />
   <link rel="stylesheet" href="css/quiz.css" />
 </head>
 <body>
@@ -119,6 +120,15 @@
 
       <div class="results-actions">
         <button class="btn-back" id="btn-back">← Start over</button>
+        <button class="btn-refresh" id="btn-refresh">
+          <span class="btn-refresh-text"><span class="refresh-icon">↻</span> Refresh list</span>
+          <span class="btn-refresh-loading" aria-hidden="true">
+            <span class="soundbar-bar"></span>
+            <span class="soundbar-bar"></span>
+            <span class="soundbar-bar"></span>
+            <span class="soundbar-bar"></span>
+          </span>
+        </button>
       </div>
     </div>
 

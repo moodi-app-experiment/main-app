@@ -360,6 +360,45 @@ main {
 
 .btn-back:hover { background: #411bab; color: #fff; }
 
+.btn-refresh {
+  height: 48px;
+  padding: 0 24px;
+  border: 1px solid #411bab;
+  border-radius: 9999px;
+  background: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #411bab;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 152px;
+}
+
+.btn-refresh:hover { background: #411bab; color: #fff; }
+.btn-refresh:disabled { cursor: not-allowed; }
+
+.btn-refresh-loading {
+  display: none;
+  align-items: flex-end;
+  gap: 3px;
+  height: 22px;
+}
+
+.btn-refresh.loading .btn-refresh-text { display: none; }
+.btn-refresh.loading .btn-refresh-loading { display: inline-flex; }
+.btn-refresh.loading { background: #fff; color: #411bab; }
+.btn-refresh.loading .soundbar-bar { background: #411bab; }
+
+.refresh-icon {
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1;
+}
+
 /* ── Footer ── */
 footer {
   background: #000;
@@ -390,7 +429,8 @@ footer a { color: #fff; text-decoration: underline; }
     flex-direction: column;
   }
 
-  .btn-back {
+  .btn-back,
+  .btn-refresh {
     width: 100%;
     justify-content: center;
   }
