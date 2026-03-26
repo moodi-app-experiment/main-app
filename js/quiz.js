@@ -235,14 +235,51 @@ async function pickSongs(feeling, vibe, lyrics, preferredGenre) {
   return final;
 }
 
+// ── Tag labels + emojis ─────────────────────────────────────────────
+const FEELING_TAGS = {
+  happy:      { label: 'Happy',           emoji: '😊' },
+  sad:        { label: 'Sad',             emoji: '😢' },
+  energetic:  { label: 'Energetic',       emoji: '⚡' },
+  calm:       { label: 'Calm',            emoji: '😌' },
+  romantic:   { label: 'Romantic',        emoji: '💕' },
+  anxious:    { label: 'Anxious',         emoji: '😰' },
+  nostalgic:  { label: 'Nostalgic',       emoji: '🎞️' },
+  angry:      { label: 'Fired Up',        emoji: '🔥' },
+  melancholic:{ label: 'Melancholic',     emoji: '🌧️' },
+  confident:  { label: 'Confident',       emoji: '💪' },
+  lonely:     { label: 'Lonely',          emoji: '🌙' },
+};
+const VIBE_TAGS = {
+  chill:      { label: 'Just chill',      emoji: '😎' },
+  dance:      { label: 'Dance it out',    emoji: '🕺' },
+  focus:      { label: 'Focus / study',   emoji: '🎯' },
+  workout:    { label: 'Workout fuel',    emoji: '🏋️' },
+  cry:        { label: 'Good cry',        emoji: '😭' },
+  hype:       { label: 'Get hyped',       emoji: '🤘' },
+  sleep:      { label: 'Wind down',       emoji: '😴' },
+  discover:   { label: 'Discover',        emoji: '🔍' },
+  throwback:  { label: 'Throwback',       emoji: '⏮️' },
+  drive:      { label: 'Late night drive',emoji: '🚗' },
+};
+const LYRICS_TAGS = {
+  emotional:  { label: 'Raw & emotional', emoji: '💔' },
+  anthemic:   { label: 'Anthemic',        emoji: '🎤' },
+  dark:       { label: 'Dark',            emoji: '🖤' },
+  angry:      { label: 'Angry',           emoji: '😤' },
+  hopeful:    { label: 'Hopeful',         emoji: '✨' },
+  poetic:     { label: 'Poetic',          emoji: '🖋️' },
+};
+
 // ── Render results ──────────────────────────────────────────────────
 function renderResults(songs, feeling, vibe, lyrics) {
   const tagsEl = document.getElementById('results-tags');
   tagsEl.innerHTML = '';
-  [feeling, vibe, lyrics].filter(Boolean).forEach(v => {
+  [[feeling, FEELING_TAGS], [vibe, VIBE_TAGS], [lyrics, LYRICS_TAGS]].forEach(([v, map]) => {
+    if (!v) return;
+    const meta = map[v];
     const t = document.createElement('span');
     t.className = 'results-tag';
-    t.textContent = v;
+    t.textContent = meta ? `${meta.emoji} ${meta.label}` : v;
     tagsEl.appendChild(t);
   });
 
